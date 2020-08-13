@@ -6,7 +6,7 @@ Screenshots /  Скриншоты
 
 | <img height="500" src="https://github.com/muriginvlad/BitcoinTicker/raw/master/Screenshots/Screenshot1.png" /> | <img height="500" src="https://github.com/muriginvlad/BitcoinTicker/raw/master/Screenshots/Screenshot2.png" /> |
 |------------|------------|
-|<p align="center">Загрузка.</p>||<p align="center">Основной экран.</p>|
+|<p align="center">Загрузка.</p>|<p align="center">Основной экран.</p>|
 
 
 Description / Описание 
