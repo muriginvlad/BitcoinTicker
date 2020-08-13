@@ -4,9 +4,6 @@ import SwiftyJSON
 
 class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
    
-    
-    
-    
     let baseURL = "https://apiv2.bitcoinaverage.com/indices/global/ticker/BTC"
     let currencyArray = ["AUD", "BRL","CAD","CNY","EUR","GBP","HKD","IDR","ILS","INR","JPY","MXN","NOK","NZD","PLN","RON","RUB","SEK","SGD","USD","ZAR"]
     let symbolArray = ["$", "R$", "$", "¥", "€", "£", "$", "Rp", "₪", "₹", "¥", "$", "kr", "$", "zł", "lei", "₽", "kr", "$", "$", "R"]
@@ -14,11 +11,8 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     var currencySelected = ""
     var finalURL = ""
 
-
     @IBOutlet weak var bitcoinPriceLabel: UILabel!
     @IBOutlet weak var currencyPicker: UIPickerView!
-    
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,8 +20,6 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         currencyPicker.delegate = self
     }
 
-    
-    
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -45,7 +37,6 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         print(finalURL)
         currencySelected = symbolArray[row]
         getBitcoinData(url: finalURL)
-        
     }
 
 
