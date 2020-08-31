@@ -4,7 +4,10 @@ import SwiftyJSON
 
 class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
    
-    let baseURL = "https://apiv2.bitcoinaverage.com/indices/global/ticker/BTC"
+
+    let baseURL = "https://rest.coinapi.io/v1/exchangerate/BTC"
+    let apiKey = "?apikey=28E713DA-90A7-48A7-BB20-A8157510377A"
+    
     let currencyArray = ["AUD", "BRL","CAD","CNY","EUR","GBP","HKD","IDR","ILS","INR","JPY","MXN","NOK","NZD","PLN","RON","RUB","SEK","SGD","USD","ZAR"]
     let symbolArray = ["$", "R$", "$", "¥", "€", "£", "$", "Rp", "₪", "₹", "¥", "$", "kr", "$", "zł", "lei", "₽", "kr", "$", "$", "R"]
     
@@ -33,7 +36,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        finalURL = baseURL + currencyArray[row]
+        finalURL = baseURL + currencyArray[row] + apiKey
         print(finalURL)
         currencySelected = symbolArray[row]
         getBitcoinData(url: finalURL)
@@ -48,13 +51,13 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         Alamofire.request(url, method:.get)
             .responseJSON { response in
                 if response.result.isSuccess {
-                    print("Sucess! Got the Bitcoin data")
+                    print("Ура! Данные Bitcoin получены")
                     let bitcoinJSON : JSON = JSON(response.result.value!)
                     print(bitcoinJSON)
                    self.updateBitcoinData(json: bitcoinJSON)
                 } else {
-                   print("Error: \(String(describing: response.result.error))")
-                    self.bitcoinPriceLabel.text = "Connection Issues"
+                   print("Ошибка: \(String(describing: response.result.error))")
+                    self.bitcoinPriceLabel.text = "Проблемы с подключением"
                 }
             }
     }
@@ -65,10 +68,11 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     
     func updateBitcoinData(json : JSON) {
         
-        if let bitcoinResult = json["ask"].double {
+            let bitcoinData = json["rates"][2]
+        if let bitcoinResult = bitcoinData["rate"].double {
             bitcoinPriceLabel.text = "\(currencySelected)\(bitcoinResult)"
         } else {
-            bitcoinPriceLabel.text =  "Price unavelible"
+            bitcoinPriceLabel.text =  "Цена недоступна"
         }
     }
 }
